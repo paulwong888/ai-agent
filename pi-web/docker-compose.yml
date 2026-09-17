@@ -8,6 +8,8 @@ services:
     restart: unless-stopped
     ports:
       - "30141:30141"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       - TZ=Asia/Shanghai
       - PORT=30141
@@ -20,7 +22,7 @@ services:
       - PI_CODING_AGENT_DIR=/home/node/.pi/agent
       - HTTP_PROXY=
       - HTTPS_PROXY=
-      - NO_PROXY=localhost,127.0.0.1,192.168.0.108
+      - NO_PROXY=localhost,127.0.0.1,192.168.0.108,host.docker.internal
     volumes:
       - ./data/agent:/home/node/.pi/agent
       - /home/paul/ai:/home/paul/ai
