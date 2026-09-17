@@ -8,6 +8,7 @@ services:
     restart: unless-stopped
     ports:
       - "30141:30141"
+      - "9876:9876"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     environment:
@@ -19,11 +20,13 @@ services:
       - PI_WEB_IDLE_TIMEOUT_MS=600000
       - PI_WEB_SKIP_VERSION_CHECK=1
       - PI_WEB_ALLOWED_HOSTS=192.168.0.108,localhost,127.0.0.1
+      - PI_WEB_INIT_HOST=192.168.0.108
+      - PI_WEB_DATA_DIR=/my-data
       - PI_CODING_AGENT_DIR=/home/node/.pi/agent
       - HTTP_PROXY=
       - HTTPS_PROXY=
       - NO_PROXY=localhost,127.0.0.1,192.168.0.108,host.docker.internal
     volumes:
       - ./data/agent:/home/node/.pi/agent
-      - /home/paul/ai:/home/paul/ai
+      - ./data/my-data:/my-data
     user: "1000:1000"

@@ -1,2 +1,4 @@
 data/agent/*
 !data/agent/.gitkeep
+data/my-data/*
+!data/my-data/.gitkeep

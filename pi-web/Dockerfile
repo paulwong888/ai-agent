@@ -1,7 +1,7 @@
 FROM node:22-bookworm-slim
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends python3 make g++ ca-certificates \
+    && apt-get install -y --no-install-recommends python3 make g++ ca-certificates curl \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -14,6 +14,9 @@ USER node
 ENV PATH=/app/node_modules/.bin:/usr/local/bin:/usr/bin:/bin
 ENV NODE_ENV=production
 
-EXPOSE 30141
+COPY --chown=node:node entrypoint.sh /app/entrypoint.sh
 
-CMD ["pi-web", "--no-open"]
+EXPOSE 30141 9876
+
+ENTRYPOINT ["/app/entrypoint.sh"]
+CMD []
