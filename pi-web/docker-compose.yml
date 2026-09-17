@@ -1,0 +1,27 @@
+services:
+  pi-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pi-web:local
+    container_name: pi-web
+    restart: unless-stopped
+    ports:
+      - "30141:30141"
+    environment:
+      - TZ=Asia/Shanghai
+      - PORT=30141
+      - PI_WEB_HOSTNAME=0.0.0.0
+      - PI_WEB_NO_OPEN=1
+      - PI_WEB_PASSWORD=Abcd2025#
+      - PI_WEB_IDLE_TIMEOUT_MS=600000
+      - PI_WEB_SKIP_VERSION_CHECK=1
+      - PI_WEB_ALLOWED_HOSTS=192.168.0.108,localhost,127.0.0.1
+      - PI_CODING_AGENT_DIR=/home/node/.pi/agent
+      - HTTP_PROXY=
+      - HTTPS_PROXY=
+      - NO_PROXY=localhost,127.0.0.1,192.168.0.108
+    volumes:
+      - ./data/agent:/home/node/.pi/agent
+      - /home/paul/ai:/home/paul/ai
+    user: "1000:1000"

@@ -1,0 +1,19 @@
+FROM node:22-bookworm-slim
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends python3 make g++ ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+RUN npm install @agegr/pi-web@latest \
+    && chown -R node:node /app
+
+USER node
+
+ENV PATH=/app/node_modules/.bin:/usr/local/bin:/usr/bin:/bin
+ENV NODE_ENV=production
+
+EXPOSE 30141
+
+CMD ["pi-web", "--no-open"]
